@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Wrap widget that shall be rebuilt with changing state with BlocBuilder
+            // Wrap widget that shall be rebuilt with changing state with BlocConsumer
             BlocConsumer<CounterCubit, CounterState>(
               listener: (context, state) {
                 if (state.wasIncremented == true) {
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
               },
               builder: (context, state) {
-                // Access with state.
+                // Access with state.counterValue
                 if (state.counterValue <= 0) {
                   return Text(
                     'Verdien på counterValue er: ${state.counterValue.toString()}',
