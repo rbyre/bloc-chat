@@ -40,67 +40,67 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: BlocListener<CounterCubit, CounterState>(
-        listener: (context, state) {
-          if (state.wasIncremented == true) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Lagt til 1'),
-              ),
-            );
-          } else if (state.wasIncremented == false) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Trukket fra 1'),
-              ),
-            );
-          }
-        },
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // Wrap widget that shall be rebuilt with changing state with BlocBuilder
-              BlocBuilder<CounterCubit, CounterState>(
-                builder: (context, state) {
-                  // Access with state.
-                  if (state.counterValue <= 0) {
-                    return Text(
-                      'Verdien på counterValue er: ${state.counterValue.toString()}',
-                      style: TextStyle(color: Colors.blue, fontSize: 28),
-                    );
-                  } else {
-                    return Text(
-                      'Verdien på counterValue er: ${state.counterValue.toString()}',
-                      style: TextStyle(color: Colors.red, fontSize: 28),
-                    );
-                  }
-                },
-              ),
-              SizedBox(height: 48),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FloatingActionButton(
-                    onPressed: () {
-                      // alt. context.bloc<CounterCubit>().decrement();
-                      BlocProvider.of<CounterCubit>(context).decrement();
-                    },
-                    tooltip: 'Minus',
-                    child: Icon(Icons.remove),
-                  ),
-                  FloatingActionButton(
-                    onPressed: () {
-                      //
-                      BlocProvider.of<CounterCubit>(context).increment();
-                    },
-                    tooltip: 'Pluss',
-                    child: Icon(Icons.add),
-                  )
-                ],
-              ),
-            ],
-          ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            // Wrap widget that shall be rebuilt with changing state with BlocBuilder
+            BlocConsumer<CounterCubit, CounterState>(
+              listener: (context, state) {
+                if (state.wasIncremented == true) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('counterValue er ${state.counterValue}'),
+                      duration: Duration(milliseconds: 200),
+                    ),
+                  );
+                } else if (state.wasIncremented == false) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('counterValue er ${state.counterValue}'),
+                      duration: Duration(milliseconds: 200),
+                    ),
+                  );
+                }
+              },
+              builder: (context, state) {
+                // Access with state.
+                if (state.counterValue <= 0) {
+                  return Text(
+                    'Verdien på counterValue er: ${state.counterValue.toString()}',
+                    style: TextStyle(color: Colors.blue, fontSize: 28),
+                  );
+                } else {
+                  return Text(
+                    'Verdien på counterValue er: ${state.counterValue.toString()}',
+                    style: TextStyle(color: Colors.red, fontSize: 28),
+                  );
+                }
+              },
+            ),
+            SizedBox(height: 48),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FloatingActionButton(
+                  onPressed: () {
+                    // alt. context.bloc<CounterCubit>().decrement();
+                    BlocProvider.of<CounterCubit>(context).decrement();
+                  },
+                  tooltip: 'Minus',
+                  child: Icon(Icons.remove),
+                ),
+                FloatingActionButton(
+                  onPressed: () {
+                    //
+                    BlocProvider.of<CounterCubit>(context).increment();
+                  },
+                  tooltip: 'Pluss',
+                  child: Icon(Icons.add),
+                )
+              ],
+            ),
+          ],
         ),
       ),
     );
