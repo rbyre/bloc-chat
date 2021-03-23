@@ -1,29 +1,32 @@
-import 'package:bloc_chat/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'package:bloc_chat/logic/cubit/counter_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc_chat/presentation/router/app_router.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final AppRouter _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    // Wrap Materialapp in BlocProvider to make CounterCubit() available to subtree below.
-    return BlocProvider(
-      create: (context) => CounterCubit(),
-      child: MaterialApp(
-        title: 'Chat',
-        theme: ThemeData(
-          primarySwatch: Colors.purple,
-        ),
-        home: MyHomeScreen(
-          title: 'Hjem Skjerm',
-          color: Colors.lightBlueAccent,
-        ),
+    return MaterialApp(
+      title: 'Chat',
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
       ),
+      onGenerateRoute: _appRouter.onGenerateRoute,
     );
+  }
+
+  @override
+  void dispose() {
+    _appRouter.dispose();
+    super.dispose();
   }
 }
