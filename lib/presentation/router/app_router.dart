@@ -1,5 +1,7 @@
 import 'package:bloc_chat/data/models/user.dart';
 import 'package:bloc_chat/logic/cubit/cubit/firebase_cubit.dart';
+import 'package:bloc_chat/presentation/screens/registration_screen.dart';
+import 'package:bloc_chat/presentation/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bloc_chat/presentation/screens/chat_screen.dart';
@@ -12,13 +14,30 @@ class AppRouter {
       case '/':
         return MaterialPageRoute(
             builder: (_) => LobbyScreen(
+
+                // title: 'Lobby',
+                // color: Colors.redAccent,
+                ));
+        break;
+      case '/login':
+        return MaterialPageRoute(
+            builder: (_) => LoginScreen(
                 // title: 'Innloggingsskjerm',
                 // color: Colors.lightBlueAccent,
+                ));
+        break;
+      case '/registration':
+        return MaterialPageRoute(
+            builder: (_) => RegistrationScreen(
+
+                // title: 'Lobby',
+                // color: Colors.redAccent,
                 ));
         break;
       case '/lobby':
         return MaterialPageRoute(
             builder: (_) => LobbyScreen(
+
                 // title: 'Lobby',
                 // color: Colors.redAccent,
                 ));
@@ -36,6 +55,7 @@ class AppRouter {
                   // color: Colors.greenAccent,
                 ));
         break;
+
       default:
         return null;
     }

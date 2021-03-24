@@ -1,159 +1,96 @@
-import 'package:bloc_chat/constants/enums.dart';
-import 'package:bloc_chat/logic/cubit/counter_cubit.dart';
-import 'package:bloc_chat/logic/cubit/internet_cubit.dart';
+import 'package:bloc_chat/constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nice_button/nice_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key key, this.title, this.color}) : super(key: key);
-
-  final String title;
-  final Color color;
-
+  // static const String id = 'login_screen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool showSpinner = false;
+  final _auth = FirebaseAuth.instance;
+  String email;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: widget.color,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            BlocBuilder<InternetCubit, InternetState>(
-              builder: (context, state) {
-                if (state is InternetConnected &&
-                    state.connectionType == ConnectionType.Wifi) {
-                  return Text('Wifi');
-                } else if (state is InternetConnected &&
-                    state.connectionType == ConnectionType.Mobile) {
-                  return Text('Mobile');
-                } else if (state is InternetDisconnected) {
-                  return Text('Disconnected');
-                }
-                return CircularProgressIndicator();
-              },
-            ),
-            // Wrap widget that shall be rebuilt with changing state with BlocConsumer
-            BlocConsumer<CounterCubit, CounterState>(
-              listener: (context, state) {
-                if (state.wasIncremented == true) {
-                  ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('counterValue er ${state.counterValue}'),
-                      duration: Duration(milliseconds: 200),
-                    ),
-                  );
-                } else if (state.wasIncremented == false) {
-                  ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('counterValue er ${state.counterValue}'),
-                      duration: Duration(milliseconds: 200),
-                    ),
-                  );
-                }
-              },
-              builder: (context, state) {
-                // Access with state.counterValue
-                if (state.counterValue <= 0) {
-                  return Text(
-                    'Verdien på counterValue er: ${state.counterValue.toString()}',
-                    style: TextStyle(color: Colors.blue, fontSize: 28),
-                  );
-                } else {
-                  return Text(
-                    'Verdien på counterValue er: ${state.counterValue.toString()}',
-                    style: TextStyle(color: Colors.red, fontSize: 28),
-                  );
-                }
-              },
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            Builder(builder: (context) {
-              final counterState = context.watch<CounterCubit>().state;
-              final internetState = context.watch<InternetCubit>().state;
-
-              if (internetState is InternetConnected &&
-                  internetState.connectionType == ConnectionType.Mobile) {
-                return Text(
-                  'Counter: ' +
-                      counterState.counterValue.toString() +
-                      ' Internet: Mobile',
-                );
-              } else if (internetState is InternetConnected &&
-                  internetState.connectionType == ConnectionType.Wifi) {
-                return Text('Counter: ' +
-                    counterState.counterValue.toString() +
-                    ' Internet: Wifi');
-              } else {
-                return Text(
-                  'Counter: ' +
-                      counterState.counterValue.toString() +
-                      'Internet Disconnected',
-                );
-              }
-            }),
-            SizedBox(height: 48),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FloatingActionButton(
-                  onPressed: () {
-                    // alt. context.read <CounterCubit>().decrement();
-                    BlocProvider.of<CounterCubit>(context).decrement();
-                  },
-                  backgroundColor: widget.color,
-                  tooltip: 'Minus',
-                  child: Icon(Icons.remove),
+      backgroundColor: Colors.white,
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Flexible(
+                child: Hero(
+                  tag: 'naeva',
+                  child: Container(
+                    height: 200.0,
+                    child: Image.asset('images/naeva.png'),
+                  ),
                 ),
-                FloatingActionButton(
-                  onPressed: () {
-                    //
-                    // BlocProvider.of<FirebaseCubit>(context).addData();
-                  },
-                  backgroundColor: widget.color,
-                  tooltip: 'Pluss',
-                  child: Icon(Icons.add),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            TextButton(
-              child: Text('Gå til Lobby'),
-              style: TextButton.styleFrom(
-                primary: Colors.white,
-                backgroundColor: widget.color,
               ),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/lobby');
-              },
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            TextButton(
-              child: Text('Gå til Chat'),
-              style: TextButton.styleFrom(
-                primary: Colors.white,
-                backgroundColor: widget.color,
+              SizedBox(
+                height: 48.0,
               ),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/chat');
-              },
-            ),
-          ],
+              TextField(
+                keyboardType: TextInputType.emailAddress,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  email = value;
+                },
+                decoration:
+                    kTextFieldDecoration.copyWith(hintText: 'Skriv inn e-mail'),
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              TextField(
+                obscureText: true,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  password = value;
+                },
+                decoration: kTextFieldDecoration.copyWith(
+                    hintText: 'Skriv inn passord'),
+              ),
+              SizedBox(
+                height: 24.0,
+              ),
+              NiceButton(
+                text: 'Registrer',
+                elevation: 8.0,
+                radius: 52.0,
+                background: Colors.orange[500],
+                onPressed: () async {
+                  setState(() {
+                    showSpinner = true;
+                  });
+                  try {
+                    final user = await _auth.signInWithEmailAndPassword(
+                        email: email, password: password);
+                    if (user != null) {
+                      Navigator.of(context).pushNamed('/lobby');
+                      // Navigator.pushNamed(context, LobbyScreen.id);
+                    }
+
+                    setState(() {
+                      showSpinner = false;
+                    });
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
