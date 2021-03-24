@@ -12,19 +12,10 @@ class AppRouter {
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/':
-        return MaterialPageRoute(
-            builder: (_) => LobbyScreen(
-
-                // title: 'Lobby',
-                // color: Colors.redAccent,
-                ));
+        return MaterialPageRoute(builder: (_) => WelcomeScreen());
         break;
       case '/login':
-        return MaterialPageRoute(
-            builder: (_) => LoginScreen(
-                // title: 'Innloggingsskjerm',
-                // color: Colors.lightBlueAccent,
-                ));
+        return MaterialPageRoute(builder: (_) => LoginScreen());
         break;
       case '/registration':
         return MaterialPageRoute(

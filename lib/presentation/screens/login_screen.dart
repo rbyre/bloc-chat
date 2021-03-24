@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
@@ -41,18 +41,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 48.0,
               ),
               TextField(
+                style: TextStyle(color: Colors.white),
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
                   email = value;
                 },
                 decoration:
-                    kTextFieldDecoration.copyWith(hintText: 'Skriv inn e-mail'),
+                    kTextFieldDecoration.copyWith(hintText: 'Skriv inn e-post'),
               ),
               SizedBox(
                 height: 8.0,
               ),
               TextField(
+                style: TextStyle(color: Colors.white),
                 obscureText: true,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
