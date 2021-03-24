@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class LobbyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.black,
         body: SafeArea(
           child: StreamBuilder<List<User>>(
             stream: FirebaseCubit.getUsers(),

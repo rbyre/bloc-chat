@@ -23,7 +23,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                     name,
                     style: TextStyle(
                       fontSize: 24,
-                      color: Colors.white,
+                      color: Colors.orange[500],
                       fontWeight: FontWeight.bold,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -32,7 +32,9 @@ class ProfileHeaderWidget extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    buildIcon(Icons.call),
+                    buildIcon(
+                      Icons.call,
+                    ),
                     SizedBox(width: 12),
                     buildIcon(Icons.videocam),
                   ],
@@ -48,7 +50,7 @@ class ProfileHeaderWidget extends StatelessWidget {
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.white54,
+          color: Colors.orange[500],
         ),
         child: Icon(icon, size: 25, color: Colors.white),
       );

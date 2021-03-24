@@ -43,9 +43,10 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Chat',
         theme: ThemeData(
-          primarySwatch: Colors.purple,
+          primarySwatch: Colors.lightBlue,
         ),
         onGenerateRoute: appRouter.onGenerateRoute,
       ),

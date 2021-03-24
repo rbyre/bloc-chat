@@ -41,7 +41,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.grey[100],
-                  labelText: 'Type your message',
+                  labelText: 'Aa',
                   border: OutlineInputBorder(
                     borderSide: BorderSide(width: 0),
                     gapPadding: 10,
