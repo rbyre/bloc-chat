@@ -30,8 +30,7 @@ class MyApp extends StatelessWidget {
           create: (context) => InternetCubit(connectivity: connectivity),
         ),
         BlocProvider<CounterCubit>(
-          create: (context) =>
-              CounterCubit(internetCubit: context.read<InternetCubit>()),
+          create: (context) => CounterCubit(),
         ),
       ],
       child: MaterialApp(
