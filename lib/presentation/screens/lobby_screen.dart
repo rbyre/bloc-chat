@@ -2,6 +2,7 @@ import 'package:bloc_chat/data/models/user.dart';
 import 'package:bloc_chat/logic/cubit/cubit/firebase_cubit.dart';
 import 'package:bloc_chat/presentation/widgets/chat_body_widgets.dart';
 import 'package:bloc_chat/presentation/widgets/chat_header_widget.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LobbyScreen extends StatelessWidget {

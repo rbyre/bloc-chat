@@ -1,6 +1,4 @@
-import 'package:bloc_chat/logic/cubit/counter_cubit.dart';
 import 'package:bloc_chat/logic/cubit/cubit/firebase_cubit.dart';
-import 'package:bloc_chat/logic/cubit/internet_cubit.dart';
 import 'package:bloc_chat/users.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,12 +30,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<InternetCubit>(
-          create: (context) => InternetCubit(connectivity: connectivity),
-        ),
-        BlocProvider<CounterCubit>(
-          create: (context) => CounterCubit(),
-        ),
         BlocProvider<FirebaseCubit>(
           create: (context) => FirebaseCubit(),
         )

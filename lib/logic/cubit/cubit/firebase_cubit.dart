@@ -3,6 +3,7 @@ import 'package:bloc_chat/data/models/message.dart';
 import 'package:bloc_chat/data/models/user.dart';
 import 'package:bloc_chat/presentation/widgets/data.dart';
 import 'package:bloc_chat/utils.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
@@ -11,6 +12,8 @@ part 'firebase_state.dart';
 
 class FirebaseCubit extends Cubit<FirebaseState> {
   FirebaseCubit() : super(FirebaseState(chatState: ""));
+
+  // final _auth = FirebaseAuth.instance;
 
   // addData() {
   //   Map<String, dynamic> demoData = {
@@ -69,4 +72,14 @@ class FirebaseCubit extends Cubit<FirebaseState> {
       }
     }
   }
+
+//  void getCurrentUser() {
+//    final user = await  _auth.authStateChanges()
+//   .listen((User user) {
+//     if (user == null) {
+//       print('User is currently signed out!');
+//     } else {
+//       print('User is signed in!');
+//     }
+//   });
 }
