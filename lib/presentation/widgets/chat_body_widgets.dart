@@ -1,4 +1,5 @@
 import 'package:bloc_chat/data/models/user.dart';
+import 'package:bloc_chat/presentation/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChatBodyWidget extends StatelessWidget {
@@ -33,10 +34,10 @@ class ChatBodyWidget extends StatelessWidget {
             height: 75,
             child: ListTile(
               onTap: () {
-                Navigator.of(context).pushNamed('/chat');
-                // Navigator.of(context).push(MaterialPageRoute(
-                //   builder: (context) => ChatScreen(user: user),
-                // ));
+                // Navigator.of(context).pushNamed('/chat');
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ChatScreen(user: user),
+                ));
               },
               leading: CircleAvatar(
                 radius: 25,
