@@ -85,7 +85,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               radius: 52.0,
               onPressed: () {
                 Navigator.of(context).pushNamed('/login');
-                // Navigator.pushNamed(context, LoginScreen.id);
               },
             ),
             SizedBox(
@@ -98,7 +97,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               background: Colors.orange[500],
               onPressed: () {
                 Navigator.of(context).pushNamed('/registration');
-                // Navigator.pushNamed(context, RegistrationScreen.id);
               },
             ),
           ],

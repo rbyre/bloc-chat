@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 24.0,
               ),
               NiceButton(
-                text: 'Registrer',
+                text: 'Logg inn',
                 elevation: 8.0,
                 radius: 52.0,
                 background: Colors.orange[500],
@@ -80,7 +80,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         email: email, password: password);
                     if (user != null) {
                       Navigator.of(context).pushNamed('/lobby');
-                      // Navigator.pushNamed(context, LobbyScreen.id);
                     }
 
                     setState(() {
