@@ -1,5 +1,5 @@
 import 'package:bloc_chat/data/models/message.dart';
-import 'package:bloc_chat/logic/cubit/cubit/firebase_cubit.dart';
+import 'package:bloc_chat/logic/cubit/firebase_cubit.dart';
 import 'package:bloc_chat/presentation/widgets/message_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +35,7 @@ class MessagesWidget extends StatelessWidget {
 
                           return MessageWidget(
                             message: message,
-                            isMe: message.idUser == message.idUser,
+                            isMe: message.idUser == idUser,
                           );
                         },
                       );

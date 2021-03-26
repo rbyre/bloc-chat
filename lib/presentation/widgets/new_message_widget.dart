@@ -1,4 +1,4 @@
-import 'package:bloc_chat/logic/cubit/cubit/firebase_cubit.dart';
+import 'package:bloc_chat/logic/cubit/firebase_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

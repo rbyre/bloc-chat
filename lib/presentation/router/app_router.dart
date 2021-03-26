@@ -1,5 +1,5 @@
 import 'package:bloc_chat/data/models/user.dart';
-import 'package:bloc_chat/logic/cubit/cubit/firebase_cubit.dart';
+// import 'package:bloc_chat/logic/cubit/cubit/firebase_cubit.dart';
 import 'package:bloc_chat/presentation/screens/registration_screen.dart';
 import 'package:bloc_chat/presentation/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,20 +18,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LoginScreen());
         break;
       case '/registration':
-        return MaterialPageRoute(
-            builder: (_) => RegistrationScreen(
-
-                // title: 'Lobby',
-                // color: Colors.redAccent,
-                ));
+        return MaterialPageRoute(builder: (_) => RegistrationScreen());
         break;
       case '/lobby':
-        return MaterialPageRoute(
-            builder: (_) => LobbyScreen(
-
-                // title: 'Lobby',
-                // color: Colors.redAccent,
-                ));
+        return MaterialPageRoute(builder: (_) => LobbyScreen());
         break;
       case '/chat':
         return MaterialPageRoute(
@@ -39,7 +29,7 @@ class AppRouter {
                   user: User(
                     name: 'Runar Byre',
                     urlAvatar:
-                        'https://media-exp1.licdn.com/dms/image/C5635AQHynhL1EodFTA/profile-framedphoto-shrink_400_400/0/1615913791556?e=1616684400&v=beta&t=bDeuXYGHvca2N7gK8CWvSt5XWxnoZDApnkXuP6Q6Phc',
+                        'https://runarbyre.pythonanywhere.com/static/portfolio/Runar_cropped_new.png',
                     lastMessageTime: DateTime.now(),
                   ),
                   // title: 'Chat',

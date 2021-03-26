@@ -1,5 +1,4 @@
 import 'package:bloc_chat/data/models/user.dart';
-import 'package:bloc_chat/presentation/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChatBodyWidget extends StatelessWidget {

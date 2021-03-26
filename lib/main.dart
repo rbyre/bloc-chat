@@ -1,4 +1,4 @@
-import 'package:bloc_chat/logic/cubit/cubit/firebase_cubit.dart';
+import 'package:bloc_chat/logic/cubit/firebase_cubit.dart';
 import 'package:bloc_chat/users.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
