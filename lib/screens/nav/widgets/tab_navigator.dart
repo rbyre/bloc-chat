@@ -4,7 +4,6 @@ import 'package:bloc_chat/enums/enums.dart';
 import 'package:bloc_chat/repositories/repositories.dart';
 import 'package:bloc_chat/screens/chats/cubit/chats_cubit.dart';
 import 'package:bloc_chat/screens/lobby/cubit/lobby_cubit.dart';
-import 'package:bloc_chat/screens/lobby/cubit/posts_cubit.dart';
 import 'package:bloc_chat/screens/profile/bloc/profile_bloc.dart';
 import 'package:bloc_chat/screens/screens.dart';
 import 'package:flutter/material.dart';
@@ -52,8 +51,8 @@ class TabNavigator extends StatelessWidget {
           child: LobbyScreen(),
         );
       case BottomNavItem.chats:
-        return BlocProvider<ChatsCubit>(
-          create: (context) => ChatsCubit()..getUsers(),
+        return BlocProvider<MessagesBloc>(
+          create: (context) => MessagesBloc()..add(LoadMessagesEvent()),
           child: ChatsScreen(),
         );
       case BottomNavItem.search:

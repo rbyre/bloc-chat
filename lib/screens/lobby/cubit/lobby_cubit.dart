@@ -9,4 +9,6 @@ class LobbyCubit extends Cubit<List<User>> {
   LobbyCubit() : super([]);
 
   void getUsers() async => emit(await _firebaseService.getUsers());
+
+  void getStreamedUsers() async => emit(await _firebaseService.userStream());
 }
