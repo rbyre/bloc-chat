@@ -1,46 +1,84 @@
-import 'package:bloc_chat/logic/cubit/firebase_cubit.dart';
-import 'package:bloc_chat/users.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:bloc_chat/blocs/blocs.dart';
+import 'package:bloc_chat/blocs/simple_bloc_observer.dart';
+import 'package:bloc_chat/config/custom_router.dart';
+// import 'package:bloc_chat/logic/cubit/firebase_cubit.dart';
+import 'package:bloc_chat/repositories/repositories.dart';
+import 'package:bloc_chat/screens/profile/bloc/profile_bloc.dart';
+import 'package:bloc_chat/screens/screens.dart';
+// import 'package:bloc_chat/users.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc_chat/presentation/router/app_router.dart';
+// import 'package:bloc_chat/presentation/router/app_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-Future main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await FirebaseCubit.addRandomUsers(Users.initUsers);
-  runApp(MyApp(
-    appRouter: AppRouter(),
-    connectivity: Connectivity(),
-  ));
+  EquatableConfig.stringify = kDebugMode;
+  Bloc.observer = SimpleBlocObserver();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final AppRouter appRouter;
-  final Connectivity connectivity;
-
-  const MyApp({
-    Key key,
-    @required this.appRouter,
-    @required this.connectivity,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider<FirebaseCubit>(
-          create: (context) => FirebaseCubit(),
-        )
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Chat',
-        theme: ThemeData(
-          primarySwatch: Colors.lightBlue,
+        RepositoryProvider<AuthRepository>(
+          create: (_) => AuthRepository(),
         ),
-        onGenerateRoute: appRouter.onGenerateRoute,
+        RepositoryProvider<UserRepository>(
+          create: (_) => UserRepository(),
+        ),
+        RepositoryProvider<StorageRepository>(
+          create: (_) => StorageRepository(),
+        ),
+        // RepositoryProvider<PostRepository>(
+        //   create: (_) => PostRepository(),
+        // ),
+        // RepositoryProvider<NotificationRepository>(
+        //   create: (_) => NotificationRepository(),
+        // ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthBloc>(
+            create: (context) =>
+                AuthBloc(authRepository: context.read<AuthRepository>()),
+          ),
+          // BlocProvider<LikedPostsCubit>(
+          //   create: (context) => LikedPostsCubit(
+          //     postRepository: context.read<PostRepository>(),
+          //     authBloc: context.read<AuthBloc>(),
+          //   ),
+          // ),
+        ],
+        child: MaterialApp(
+          title: 'Chat',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            scaffoldBackgroundColor: Colors.grey[50],
+            appBarTheme: AppBarTheme(
+              brightness: Brightness.light,
+              color: Colors.white,
+              iconTheme: const IconThemeData(color: Colors.black),
+              textTheme: const TextTheme(
+                headline6: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          onGenerateRoute: CustomRouter.onGenerateRoute,
+          initialRoute: WelcomeScreen.routeName,
+        ),
       ),
     );
   }

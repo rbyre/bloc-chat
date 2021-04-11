@@ -1,12 +1,12 @@
 import 'package:bloc_chat/data/models/user.dart';
 // import 'package:bloc_chat/logic/cubit/cubit/firebase_cubit.dart';
-import 'package:bloc_chat/presentation/screens/registration_screen.dart';
-import 'package:bloc_chat/presentation/screens/welcome_screen.dart';
+import 'package:bloc_chat/screens/signup/signup_screen.dart';
+import 'package:bloc_chat/screens/splash/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bloc_chat/presentation/screens/chat_screen.dart';
 import 'package:bloc_chat/presentation/screens/lobby_screen.dart';
-import 'package:bloc_chat/presentation/screens/login_screen.dart';
+import 'package:bloc_chat/screens/login/login_screen.dart';
 
 class AppRouter {
   Route onGenerateRoute(RouteSettings routeSettings) {
@@ -18,7 +18,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LoginScreen());
         break;
       case '/registration':
-        return MaterialPageRoute(builder: (_) => RegistrationScreen());
+        return MaterialPageRoute(builder: (_) => SignupScreen());
         break;
       case '/lobby':
         return MaterialPageRoute(builder: (_) => LobbyScreen());
