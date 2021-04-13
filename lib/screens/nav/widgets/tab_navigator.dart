@@ -3,6 +3,7 @@ import 'package:bloc_chat/config/custom_router.dart';
 import 'package:bloc_chat/enums/enums.dart';
 import 'package:bloc_chat/repositories/repositories.dart';
 import 'package:bloc_chat/screens/chats/cubit/chats_cubit.dart';
+import 'package:bloc_chat/screens/chats/cubit/sendMessage_cubit.dart';
 import 'package:bloc_chat/screens/lobby/cubit/lobby_cubit.dart';
 import 'package:bloc_chat/screens/profile/bloc/profile_bloc.dart';
 import 'package:bloc_chat/screens/screens.dart';
@@ -51,10 +52,18 @@ class TabNavigator extends StatelessWidget {
           child: LobbyScreen(),
         );
       case BottomNavItem.chats:
-        return BlocProvider<MessagesBloc>(
-          create: (context) => MessagesBloc()..add(LoadMessagesEvent()),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<MessagesBloc>(
+              create: (context) => MessagesBloc()..add(LoadMessagesEvent()),
+            ),
+            BlocProvider<SendMessageCubit>(
+              create: (context) => SendMessageCubit(),
+            )
+          ],
           child: ChatsScreen(),
         );
+
       case BottomNavItem.search:
         return SearchScreen();
       case BottomNavItem.profile:
@@ -71,3 +80,9 @@ class TabNavigator extends StatelessWidget {
     }
   }
 }
+
+
+// return BlocProvider<MessagesBloc>(
+//           create: (context) => MessagesBloc()..add(LoadMessagesEvent()),
+//           child: ChatsScreen(),
+//         );
